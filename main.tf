@@ -6,18 +6,18 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias      = "frank"
   region     = "eu-central-1"
+  alias      = "frank"
   access_key = ""
   secret_key = ""
 }
 
 
-variable "ami-l"{
+variable "ami-l" {
   default = "ami-05f37c3995fffb4fd"
 }
 
-variable "ami-f"{
+variable "ami-f" {
   default = "ami-0d4c3eabb9e72650a"
 }
 
@@ -26,7 +26,7 @@ module "ec2-l" {
   providers = {
     aws = aws.london
   }
-  ami-var=var.ami-l
+  ami-var = var.ami-l
 }
 
 module "ec2-f" {
@@ -34,5 +34,5 @@ module "ec2-f" {
   providers = {
     aws = aws.frank
   }
-  ami-var=var.ami-f
+  ami-var = var.ami-f
 }
