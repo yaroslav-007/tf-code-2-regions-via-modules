@@ -13,20 +13,26 @@ provider "aws" {
 }
 
 
-resource "aws_instance" "london" {
-  provider      = aws.london
-  ami           = "ami-05f37c3995fffb4fd"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "Test-London"
-  }
+variable "ami-l"{
+  default = "ami-05f37c3995fffb4fd"
 }
 
+variable "ami-f"{
+  default = "ami-0d4c3eabb9e72650a"
+}
 
-###Calling the second resourse via module with custom provider
-module "frankfurt-ec2" {
+module "ec2-l" {
+  source = "./module"
+  providers = {
+    aws = aws.london
+  }
+  ami-var=var.ami-l
+}
+
+module "ec2-f" {
   source = "./module"
   providers = {
     aws = aws.frank
   }
+  ami-var=var.ami-f
 }
